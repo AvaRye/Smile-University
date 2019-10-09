@@ -201,11 +201,6 @@ class SettingsActivity : CAppCompatActivity() {
                 UpdateManager.getInstance().isAutoCheck = newValue as Boolean
                 true
             }
-
-            val addGroup = findPreference(getString(R.string.pref_add_group))
-            addGroup.setOnPreferenceClickListener {
-                joinQQGroup("DqYP6KYECBOV36yk1_RBE6iVjXbKVv0R")
-            }
         }
 
         private fun processExitTju() {

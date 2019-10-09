@@ -2,7 +2,6 @@ package com.twt.service.home.user
 
 import android.app.Activity
 import android.app.AlertDialog
-import android.arch.lifecycle.MutableLiveData
 import android.content.Intent
 import android.os.Bundle
 import android.preference.PreferenceManager
@@ -17,17 +16,12 @@ import android.widget.Toast
 import com.tencent.stat.StatMultiAccount
 import com.tencent.stat.StatService
 import com.twt.service.R
-import com.twt.service.ecard.model.EcardPref
-import com.twt.service.ecard.model.isBindECardBoolean
-import com.twt.service.ecard.model.isBindECardLiveData
-import com.twt.service.ecard.view.EcardLoginActivity
 import com.twt.service.settings.RealBindAndDropOutService
 import com.twt.service.settings.SettingsActivity
 import com.twt.service.settings.SingleBindActivity
 import com.twt.wepeiyang.commons.cache.CacheProvider
 import com.twt.wepeiyang.commons.experimental.cache.CacheIndicator
 import com.twt.wepeiyang.commons.experimental.cache.RefreshState
-import com.twt.wepeiyang.commons.experimental.extensions.QuietCoroutineExceptionHandler
 import com.twt.wepeiyang.commons.experimental.extensions.map
 import com.twt.wepeiyang.commons.experimental.preference.CommonPreferences
 import com.twt.wepeiyang.commons.network.RxErrorHandler
@@ -35,11 +29,7 @@ import com.twt.wepeiyang.commons.view.RecyclerViewDivider
 import com.twtstudio.retrox.auth.api.authSelfLiveData
 import com.twtstudio.retrox.auth.api.login
 import com.twtstudio.retrox.auth.view.LoginActivity
-import com.twtstudio.retrox.tjulibrary.provider.TjuLibProvider
 import es.dmoral.toasty.Toasty
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import rx.android.schedulers.AndroidSchedulers
 import rx.functions.Action1
 import rx.schedulers.Schedulers
@@ -99,72 +89,6 @@ class UserFragment : Fragment() {
                                             intent.putExtra(SingleBindActivity.TYPE, SingleBindActivity.TJU_BIND)
                                             context.startActivity(intent)
                                         }
-                                    },
-
-                                    UserItem.InfoItem(R.drawable.lib_library, "图书馆", authSelfLiveData.map {
-                                        if (it.accounts.lib) "已绑定" else "未绑定"
-                                    }) {
-                                        if (CommonPreferences.isBindLibrary) {
-                                            val builder = android.support.v7.app.AlertDialog.Builder(context)
-                                                    .setTitle("图书馆解绑")
-                                                    .setMessage("是否要解绑图书馆")
-                                                    .setPositiveButton("解绑") { dialog, _ ->
-                                                        TjuLibProvider(activity).unbindLibrary {
-                                                            login(CommonPreferences.twtuname, CommonPreferences.password) {
-                                                                when (it) {
-                                                                    is RefreshState.Success -> {
-                                                                        authSelfLiveData.refresh(CacheIndicator.REMOTE)
-                                                                    }
-                                                                    is RefreshState.Failure -> {
-                                                                        Toasty.error(context, "发生错误 ${it.throwable.message}！${it.javaClass.name}").show()
-                                                                    }
-                                                                }
-                                                            }
-//                                                            refreshToken()
-//                                                            authSelfLiveData.refresh(CacheIndicator.REMOTE)
-                                                            Toasty.success(context, "解绑成功！请重新绑定图书馆", Toast.LENGTH_SHORT).show()
-                                                            dialog.dismiss()
-                                                        }
-                                                    }
-                                                    .setNegativeButton("再绑会...") { dialog, _ -> dialog.dismiss() }
-                                            builder.create().show()
-                                        } else {
-                                            val intent = Intent(activity, SingleBindActivity::class.java)
-                                            intent.putExtra(SingleBindActivity.TYPE, SingleBindActivity.LIBRARY_BIND)
-                                            context.startActivity(intent)
-                                        }
-                                    },
-
-                                    UserItem.InfoItem(R.drawable.ic_user_ecard, "校园卡", isBindECardLiveData.map {
-                                        if (it) "已绑定" else "未绑定"
-                                    }) {
-                                        if (isBindECardBoolean) {
-                                            val builder = android.support.v7.app.AlertDialog.Builder(context)
-                                                    .setTitle("校园卡解绑")
-                                                    .setMessage("是否要解绑校园卡")
-                                                    .setPositiveButton("解绑") { dialog, _ ->
-                                                        GlobalScope.launch(Dispatchers.Main + QuietCoroutineExceptionHandler) {
-                                                            EcardPref.ecardUserName = "*"
-                                                            EcardPref.ecardPassword = "*"
-                                                            isBindECardBoolean = false
-                                                            isBindECardLiveData.value = false
-                                                        }
-                                                        Toasty.success(context, "解绑成功", Toast.LENGTH_SHORT).show()
-                                                        dialog.dismiss()
-                                                    }.setNegativeButton("再绑会...") { dialog, _ -> dialog.dismiss() }
-                                            builder.create().show()
-                                        } else {
-                                            val intent = Intent(activity, EcardLoginActivity::class.java).apply {
-                                                putExtra("from", "UserFragment")
-                                            }
-                                            context.startActivity(intent)
-                                        }
-                                    },
-
-                                    UserItem.InfoItem(R.drawable.bike_bike_icon, "自行车", MutableLiveData<String>().apply {
-                                        value = if (CommonPreferences.isBindBike) "已绑定" else "未绑定"
-                                    }) {
-                                        activity?.let { Toasty.info(it, "自行车", Toast.LENGTH_SHORT).show() }
                                     },
                                     UserItem.ActionItem(R.drawable.ic_settings, "设置") {
                                         val intent = Intent(context, SettingsActivity::class.java)

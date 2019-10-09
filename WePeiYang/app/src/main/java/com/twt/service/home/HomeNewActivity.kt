@@ -16,13 +16,10 @@ import com.igexin.sdk.PushManager
 import com.twt.service.AppPreferences
 import com.twt.service.R
 import com.twt.service.ecard.model.LiveEcardManager
-import com.twt.service.ecard.view.ecardInfoItem
-import com.twt.service.ecard.view.ecardTransactionInfoItem
 import com.twt.service.home.message.*
 import com.twt.service.home.other.homeOthers
 import com.twt.service.home.user.FragmentActivity
 import com.twt.service.schedule2.view.home.homeScheduleItem
-import com.twt.service.tjunet.view.homeTjuNetItem
 import com.twt.service.widget.ScheduleWidgetProvider
 import com.twt.wepeiyang.commons.experimental.color.getColorCompat
 import com.twt.wepeiyang.commons.experimental.extensions.QuietCoroutineExceptionHandler
@@ -33,12 +30,10 @@ import com.twt.wepeiyang.commons.mta.mtaExpose
 import com.twt.wepeiyang.commons.ui.rec.withItems
 import com.twt.wepeiyang.commons.view.RecyclerViewDivider
 import com.twtstudio.retrox.auth.api.authSelfLiveData
-import com.twtstudio.retrox.tjulibrary.home.libraryHomeItem
 import es.dmoral.toasty.Toasty
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-
 import org.jetbrains.anko.dip
 import org.jetbrains.anko.startActivity
 import pub.devrel.easypermissions.EasyPermissions
@@ -50,7 +45,7 @@ class HomeNewActivity : AppCompatActivity() {
     val messageIntent = Intent()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        EasyPermissions.requestPermissions(this, "微北洋需要外部存储来提供必要的缓存\n 需要位置信息和手机状态来获取校园网连接状态", 0,
+        EasyPermissions.requestPermissions(this, "需要外部存储来提供必要的缓存\n 需要位置信息和手机状态来获取校园网连接状态", 0,
                 Manifest.permission.ACCESS_COARSE_LOCATION,
                 Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.READ_PHONE_STATE)
@@ -93,21 +88,12 @@ class HomeNewActivity : AppCompatActivity() {
             Toasty.info(this,"it")
         }
         val itemManager = rec.withItems {
-            // 重写了各个 item 的 areItemsTheSame areContentsTheSame 实现动画刷新主页
-            if (MessagePreferences.isDisplayMessage) {
-                homeMessageItem()
-                mtaExpose("app_首页显示messageItem")
-            }
+
             homeScheduleItem(this@HomeNewActivity)
             if (AppPreferences.isDisplayGpa) {
                 gpaNewHomeItem(this@HomeNewActivity)
                 mtaExpose("app_首页显示gpaItem")
             }
-//            examTableHomeItem()
-            ecardInfoItem()
-            ecardTransactionInfoItem()
-            libraryHomeItem(this@HomeNewActivity)
-            homeTjuNetItem(this@HomeNewActivity)
             homeOthers()
         }
         GlobalScope.launch(Dispatchers.Main + QuietCoroutineExceptionHandler) {
@@ -123,7 +109,7 @@ class HomeNewActivity : AppCompatActivity() {
                         messageContent = data.message
                         messageVersion = data.version
                     }
-                    itemManager.homeMessageItemAtFirst()
+//                    itemManager.homeMessageItemAtFirst()
                     rec.scrollToPosition(0)
                 }
             }

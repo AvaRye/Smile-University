@@ -42,7 +42,7 @@ class WePeiYangApp : MultiDexApplication() {
         }
 
         StatService.registerActivityLifecycleCallbacks(this)
-        StatisticsDataAPI.instance(this);
+        StatisticsDataAPI.instance(this)
 
         applicationContext.let {
             Bugly.init(it, "8ceee186f2", false)

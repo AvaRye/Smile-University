@@ -18,7 +18,7 @@
             app:contentInsetLeft="0dp"
             app:contentInsetStart="0dp"
             app:layout_collapseMode="pin"
-            app:title="课程表"
+            app:title="微校"
             app:titleTextColor="@color/white_color">
 
             <include layout="@layout/activity_home_toolbar" />
