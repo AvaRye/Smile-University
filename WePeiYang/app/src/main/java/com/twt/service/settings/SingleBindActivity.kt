@@ -21,7 +21,6 @@ import com.twt.wepeiyang.commons.experimental.preference.CommonPreferences
 import com.twt.wepeiyang.commons.network.RxErrorHandler
 import com.twtstudio.retrox.auth.api.authSelfLiveData
 import com.twtstudio.retrox.auth.api.login
-import com.twtstudio.retrox.tjulibrary.provider.TjuLibProvider
 import es.dmoral.toasty.Toasty
 import rx.android.schedulers.AndroidSchedulers
 import rx.functions.Action1
@@ -118,28 +117,7 @@ class LibBindFragment2 : Fragment() {
         libPasswordEdit = view.findViewById(R.id.lib_password)
         button = view.findViewById(R.id.btn_lib_bind)
         button.setOnClickListener {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                TjuLibProvider(context).bindLibrary({ integer ->
-                    when (integer) {
-                        -1 -> {
-                            login(CommonPreferences.twtuname, CommonPreferences.password) {
-                                when (it) {
-                                    is RefreshState.Success -> {
-                                        authSelfLiveData.refresh(CacheIndicator.REMOTE)
-                                    }
-                                    is RefreshState.Failure -> {
-                                        Toasty.error(activity, "发生错误 ${it.throwable.message}！${it.javaClass.name}").show()
-                                    }
-                                }
-                            }
-                            Toasty.success(this.context, "绑定成功", Toast.LENGTH_SHORT).show()
-                            activity.finish()
-                        }
-                        50002 -> Toasty.error(this.context, "图书馆密码错误", Toast.LENGTH_SHORT).show()
-                        else -> Toasty.error(this.context, "未知错误", Toast.LENGTH_SHORT).show()
-                    }
-                }, libPasswordEdit.text.toString().takeIf(String::isNotEmpty) ?: "000000")
-            }
+           
         }
         return view
     }

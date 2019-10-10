@@ -9,9 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import com.twt.service.R
-import com.twt.service.tjunet.view.TjuNetActivity
-import com.twtstudio.retrox.bike.bike.ui.main.BikeActivity
-import com.twtstudio.tjliqy.party.ui.home.PartyActivity
 import xyz.rickygao.gpa2.view.GpaActivity
 
 /**
@@ -27,10 +24,7 @@ class ToolsFragment : Fragment() {
                     layoutManager = GridLayoutManager(context, 4)
                     adapter = ToolsAdapter(context, listOf(
                             ToolItem(R.drawable.ic_main_schedule, "课程表", com.twt.service.schedule2.view.schedule.ScheduleActivity::class.java),
-                            ToolItem(R.drawable.ic_main_gpa, "GPA", GpaActivity::class.java),
-                            ToolItem(R.drawable.ic_main_bike, "自行车", BikeActivity::class.java),
-                            ToolItem(R.drawable.ic_main_party, "党建", PartyActivity::class.java),
-                            ToolItem(R.drawable.ic_main_network, "上网", TjuNetActivity::class.java)
+                            ToolItem(R.drawable.ic_main_gpa, "GPA", GpaActivity::class.java)
                     ))
                 }
             }

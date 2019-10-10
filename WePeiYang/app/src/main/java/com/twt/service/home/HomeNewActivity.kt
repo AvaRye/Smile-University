@@ -15,7 +15,6 @@ import com.bumptech.glide.Glide
 import com.igexin.sdk.PushManager
 import com.twt.service.AppPreferences
 import com.twt.service.R
-import com.twt.service.ecard.model.LiveEcardManager
 import com.twt.service.home.message.*
 import com.twt.service.home.other.homeOthers
 import com.twt.service.home.user.FragmentActivity
@@ -123,7 +122,6 @@ class HomeNewActivity : AppCompatActivity() {
         super.onResume()
         PushManager.getInstance().initialize(this, MessagePushService::class.java)
         PushManager.getInstance().registerPushIntentService(this, MessageIntentService::class.java)
-        LiveEcardManager.refreshEcardFullInfo()
     }
 
     override fun onConfigurationChanged(newConfig: Configuration?) {

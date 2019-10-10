@@ -15,7 +15,6 @@ import com.tencent.stat.StatService
 import com.twt.service.push.DebugProxyService
 import com.twt.service.schedule2.view.theme.ScheduleTheme
 import com.twt.service.settings.SingleBindActivity
-import com.twt.service.tjunet.reconnect.ReconnectJob
 import com.twt.service.welcome.WelcomeActivity
 import com.twt.wepeiyang.commons.experimental.CommonContext
 import com.twt.wepeiyang.commons.experimental.preference.CommonPreferences
@@ -52,16 +51,6 @@ class WePeiYangApp : MultiDexApplication() {
         }
 
         applyTheme()
-
-        /**
-         * emmmm 怎么弄得优雅一点？
-         * 此处@高瑞均
-         */
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            val jobinfo = ReconnectJob.getScheduler(this)
-            val jobService = getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
-            jobService.schedule(jobinfo)
-        }
 
         /**
          * 用于调试API服务
