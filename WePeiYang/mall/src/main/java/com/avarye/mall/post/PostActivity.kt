@@ -404,7 +404,7 @@ class PostActivity : AppCompatActivity() {
                 .setPositiveButton("确定") { _, _ -> this.finish() }
                 .create()
         dialog.show()
-        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(this, R.color.mallColorPressed))
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(this, R.color.mallColorMain))
         dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(this, R.color.mallColorPressed))
     }
 

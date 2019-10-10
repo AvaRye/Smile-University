@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory android:title="主页设置（可能需要重启微北洋）">
+    <PreferenceCategory android:title="主页设置（可能需要重启）">
 
         <SwitchPreference
             android:defaultValue="true"
@@ -29,18 +29,14 @@
 
 <!--    </PreferenceCategory>-->
 
-    <PreferenceCategory android:title="关于微北洋">
+    <PreferenceCategory android:title="关于微校">
         <SwitchPreference
             android:key="@string/pref_is_auto_check_update"
             android:title="自动更新" />
         <Preference
             android:key="@string/pref_check_update"
-            android:summary="瞅瞅微北洋有没有新版本"
+            android:summary="瞅瞅有没有新版本"
             android:title="检查更新" />
-        <Preference
-            android:key="@string/pref_dev_talking"
-            android:summary="微北洋开发血泪史"
-            android:title="开发者说" />
         <Preference
             android:key="@string/pref_feedback"
             android:summary="到移动客户端版块，说出你的故事"

@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.twt.service.R
 import com.twt.service.home.HomeNewActivity
-import com.twt.service.settings.LibBindFragment
 import com.twt.service.settings.TjuBindFragment
 import com.twt.wepeiyang.commons.experimental.preference.CommonPreferences
 
@@ -20,10 +19,8 @@ class WelcomeActivity : MaterialIntroActivity() {
         super.onCreate(savedInstanceState)
         addSlide(GpaWelcomeFragment())
         addSlide(ScheduleWelcomeFragment())
-        addSlide(BikeWelcomeFragment())
         addSlide(BriefWelcomeFragment())
         if (!CommonPreferences.isBindTju) addSlide(TjuBindFragment())
-        if (!CommonPreferences.isBindLibrary) addSlide(LibBindFragment())
     }
 
     override fun onFinish() {
