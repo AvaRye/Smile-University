@@ -10,16 +10,18 @@
         android:id="@+id/custom_appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
         app:elevation="0dp">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            android:textSize="20sp"
             app:layout_scrollFlags="scroll|enterAlways"
-            app:title="添加自定义事件"
+            app:title="自定义事件"
             app:titleTextColor="@color/white_color">
-            <include layout="@layout/schedule_toolbar_head1" />
+            <!--            <include layout="@layout/schedule_toolbar_head1" />-->
         </android.support.v7.widget.Toolbar>
 
         <!--选项卡-->
@@ -27,11 +29,11 @@
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            app:tabMode="fixed"
             android:background="#80ffffff"
             app:tabIndicatorColor="@color/colorAccent"
+            app:tabMode="fixed"
             app:tabSelectedTextColor="@color/colorAccent"
-            app:tabTextColor="@color/white_color"/>
+            app:tabTextColor="@color/white_color" />
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.view.ViewPager
@@ -39,8 +41,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 
 </android.support.design.widget.CoordinatorLayout>

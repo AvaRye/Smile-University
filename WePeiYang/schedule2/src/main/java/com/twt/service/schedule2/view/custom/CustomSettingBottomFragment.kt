@@ -18,7 +18,6 @@ import com.twt.service.schedule2.R
 import com.twt.service.schedule2.model.SchedulePref
 import com.twt.service.schedule2.model.total.TotalCourseManager
 import com.twt.service.schedule2.view.audit.AuditActivity
-import com.twt.service.schedule2.view.schedule.ScheduleActivity
 import com.twt.service.schedule2.view.theme.ScheduleTheme
 import com.twt.service.schedule2.view.theme.SpreadChainLayout
 import com.twt.service.schedule2.view.theme.spreadChainLayout
@@ -27,7 +26,6 @@ import com.twt.wepeiyang.commons.experimental.preference.CommonPreferences
 import com.twt.wepeiyang.commons.experimental.theme.CustomTheme
 import com.twt.wepeiyang.commons.mta.mtaClick
 import com.twt.wepeiyang.commons.ui.view.colorCircleView
-import es.dmoral.toasty.Toasty
 import io.multimoon.colorful.Colorful
 import org.jetbrains.anko.*
 import org.jetbrains.anko.constraint.layout.constraintLayout
@@ -121,7 +119,7 @@ class CustomSettingBottomFragment : BottomSheetDialogFragment() {
                 }
 
 
-                indicator("分享课程")
+/*                indicator("分享课程")
 
                 constraintLayout {
                     backgroundColor = Color.WHITE
@@ -142,7 +140,7 @@ class CustomSettingBottomFragment : BottomSheetDialogFragment() {
                         val activity = activity as? ScheduleActivity
                         activity?.shareSchedule()
                     }
-                }
+                }*/
 
                 indicator("课程表界面设置")
 
@@ -170,9 +168,6 @@ class CustomSettingBottomFragment : BottomSheetDialogFragment() {
                             SchedulePref.autoCollapseSchedule = isChecked
                             mtaClick("schedule_切换自动隐藏周六日状态：$isChecked")
                             post {
-                                if (CommonPreferences.realName.contains("舒")) {
-                                    Toasty.success(dialog.context, "给傲娇的舒子同学递课表").show() // 彩蛋
-                                }
                                 TotalCourseManager.invalidate()
                             }
                         }

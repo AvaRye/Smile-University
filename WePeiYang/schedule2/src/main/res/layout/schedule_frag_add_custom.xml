@@ -256,7 +256,7 @@
                 android:layout_marginTop="12dp"
                 android:layout_marginBottom="25dp"
                 android:gravity="center_vertical"
-                app:layout_constraintBottom_toTopOf="@+id/ll_course_arrange"
+                app:layout_constraintBottom_toTopOf="@id/ll_course_arrange"
                 app:layout_constraintTop_toBottomOf="@id/ll6">
 
                 <TextView
